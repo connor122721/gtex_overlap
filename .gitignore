@@ -1,0 +1,7 @@
+data/
+*.tmp
+*.log
+.nextflow/
+work/
+output*/
+*.ipynb*
