@@ -4,4 +4,4 @@ data/
 .nextflow/
 work/
 output*/
-*.ipynb*
+.ipynb_checkpoints*
