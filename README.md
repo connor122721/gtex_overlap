@@ -4,38 +4,15 @@ This pipeline analyzes the overlap between disease eQTLs (TOPCHEF) and GTEx eQTL
 
 ## Pipeline Overview
 
-1. Reads the TOPCHEF eQTL data
-2. Processes GTEx eQTL data from Parquet files
-3. Calculates the overlap between TOPCHEF and GTEx eQTLs
-4. Generates overlap statistics and visualizations
+- Reads the TOPCHEF eQTL data and processes GTEx eQTLs
+- Calculates the overlap between TOPCHEF and GTEx eQTLs
+- Colocalization with GTEx eQTL and HF GWAS
+- Generates overlap statistics and visualizations
 
-## Usage
+## Usage and prerequisites
 
-Run the pipeline with default parameters:
-
-```bash
-nextflow run main.nf
-```
-
-Run the pipeline with custom parameters:
+To run the pipeline, you will need both Apptainer v1.3.4 and Nextflow v23.04.1:
 
 ```bash
-nextflow run main.nf --gtex_dir /path/to/gtex_files --chef_file /path/to/chef_file.rds --output_dir /path/to/output
+nextflow run main.nf -profile slurm
 ```
-
-## Parameters
-
-- `gtex_dir`: Directory containing GTEx eQTL Parquet files
-- `chef_file`: Path to TOPCHEF eQTL RDS file
-- `output_dir`: Directory to save output files
-
-## Output
-
-The pipeline produces:
-
-1. `overlapGTEX_eqtl_results.csv`: CSV file with overlap statistics for each GTEx tissue
-2. `overlap_plot.png`: Horizontal bar plot visualizing the overlap percentages
-
-## Author
-
-Connor Murray

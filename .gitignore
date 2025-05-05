@@ -5,3 +5,4 @@ data/
 work/
 output*/
 .ipynb_checkpoints*
+*sif

@@ -66,6 +66,7 @@ process prepGWAS {
 process runColoc {
 
     // Publish the output to the specified directory
+    container 'library://connmurr243/rcoloc/rtidycoloc:latest'
     shell = '/usr/bin/env bash'
     publishDir "${params.out}/coloc", mode: 'copy'
     errorStrategy = 'ignore'
@@ -83,8 +84,6 @@ process runColoc {
 
     script:
         """
-        module load gcc/11.4.0 openmpi/4.1.4 R/4.3.1
-
         # Get input files
         firstRun=/standard/vol185/cphg_Manichaikul/users/csm6hg/nextflow_dna/output/tensorqtl/*${chromosome}_MaxPC70.cis_qtl.txt.gz
 
@@ -145,6 +144,7 @@ process coloc {
 process analysisColoc {
 
     // Publish the output to the specified directory
+    container 'library://connmurr243/rcoloc/rtidycoloc:latest'
     shell = '/usr/bin/env bash'
     publishDir "${params.out}/coloc", mode: 'copy'
 
@@ -158,8 +158,6 @@ process analysisColoc {
 
     script:
         """
-        module load gcc/11.4.0 openmpi/4.1.4 R/4.3.1
-
         # Run analysis script
         Rscript ${params.scripts_dir}/analysis_coloc.R \\
             --wd ${coloc_results}

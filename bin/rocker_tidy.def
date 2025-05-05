@@ -1,0 +1,34 @@
+Bootstrap: docker
+From: rocker/tidyverse:4.3.1
+
+%environment
+    export DEBIAN_FRONTEND=noninteractive
+    export LC_ALL=C.UTF-8
+    export PATH=/usr/local/bin:$PATH
+
+%post
+    # Install system dependencies
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        libncurses5-dev \
+        liblzma-dev \
+        libxml2-dev \
+        libssl-dev \
+        tar \
+        gzip \
+        unzip \
+        libgsl-dev \
+        libcurl4-openssl-dev \
+        libbz2-dev \
+        zlib1g-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+    # Set CRAN mirror
+    echo "r <- getOption('repos'); r['CRAN'] <- 'http://cran.us.r-project.org'; options(repos = r);" >> /root/.Rprofile
+
+    # Install R packages
+    Rscript -e "install.packages(c('remotes','foreach','data.table','argparse'), dependencies=TRUE)"
+    Rscript -e "remotes::install_github('chr1swallace/coloc@main')"
+
+%runscript
+    exec R "$@"
